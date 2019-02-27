@@ -627,6 +627,10 @@ The implementation is messy and without documentation, but it works.
 History Log
 ===============
     
+- 1.2.0 -- 2019-02-27
+
+    - add BabyYamlUtil::readBabyYamlString method
+    
 - 1.1.1 -- 2019-02-27
 
     - fix BabyYamlUtil::writeFile not escaping key with colon
