@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Reader\ParentsAwareMarkupParser;
+namespace Ling\BabyYaml\Reader\ParentsAwareMarkupParser;
 
 
 

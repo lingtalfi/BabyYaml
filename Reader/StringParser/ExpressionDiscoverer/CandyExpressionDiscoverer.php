@@ -1,10 +1,10 @@
 <?php
 
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscoverer;
-use BabyYaml\Helper\Escaping\EscapeTool;
-use BabyYaml\Helper\WrappedString\Tool\WrappedStringTool;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\Tool\ExpressionDiscovererTool;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer;
+use Ling\BabyYaml\Helper\Escaping\EscapeTool;
+use Ling\BabyYaml\Helper\WrappedString\Tool\WrappedStringTool;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Tool\ExpressionDiscovererTool;
 
 
 /**

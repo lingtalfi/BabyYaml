@@ -1,11 +1,11 @@
 <?php
 
 
-namespace BabyYaml\Reader\MiniMl\Formatter;
+namespace Ling\BabyYaml\Reader\MiniMl\Formatter;
 
 
-use BabyYaml\Reader\MiniMl\Formatter\ParentsAwareMarkupParser\MiniMlConsoleParentsAwareMarkupParserAdaptor;
-use BabyYaml\Reader\ParentsAwareMarkupParser\ParentsAwareMarkupParser;
+use Ling\BabyYaml\Reader\MiniMl\Formatter\ParentsAwareMarkupParser\MiniMlConsoleParentsAwareMarkupParserAdaptor;
+use Ling\BabyYaml\Reader\ParentsAwareMarkupParser\ParentsAwareMarkupParser;
 
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace BabyYaml\Helper\WrappedString\Tool;
+namespace Ling\BabyYaml\Helper\WrappedString\Tool;
 
 /**
  * WrappedStringResolverTool

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Helper;
+namespace Ling\BabyYaml\Helper;
 
 
 class StringTool

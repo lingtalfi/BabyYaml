@@ -1,12 +1,12 @@
 <?php
 
 
-namespace BabyYaml;
+namespace Ling\BabyYaml;
 
 
-use BabyYaml\Reader\BabyYamlReader;
-use BabyYaml\Reader\Exception\ParseErrorException;
-use BabyYaml\Writer\BabyYamlWriter;
+use Ling\BabyYaml\Reader\BabyYamlReader;
+use Ling\BabyYaml\Reader\Exception\ParseErrorException;
+use Ling\BabyYaml\Writer\BabyYamlWriter;
 
 class BabyYamlUtil
 {

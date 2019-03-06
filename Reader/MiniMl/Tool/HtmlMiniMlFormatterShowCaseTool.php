@@ -1,9 +1,9 @@
 <?php
 
 
-namespace BabyYaml\Reader\MiniMl\Tool;
+namespace Ling\BabyYaml\Reader\MiniMl\Tool;
 
-use BabyYaml\Reader\MiniMl\Formatter\HtmlMiniMlFormatter;
+use Ling\BabyYaml\Reader\MiniMl\Formatter\HtmlMiniMlFormatter;
 
 
 /**

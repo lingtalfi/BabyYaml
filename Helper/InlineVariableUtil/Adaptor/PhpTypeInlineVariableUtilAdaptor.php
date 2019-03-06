@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Helper\InlineVariableUtil\Adaptor;
+namespace Ling\BabyYaml\Helper\InlineVariableUtil\Adaptor;
 
 
 /**

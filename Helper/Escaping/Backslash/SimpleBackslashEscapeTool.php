@@ -1,7 +1,7 @@
 <?php
 
-namespace BabyYaml\Helper\Escaping\Backslash;
-use BabyYaml\Helper\StringTool;
+namespace Ling\BabyYaml\Helper\Escaping\Backslash;
+use Ling\BabyYaml\Helper\StringTool;
 
 
 /**

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Helper\ArrayExportUtil\Exception;
+namespace Ling\BabyYaml\Helper\ArrayExportUtil\Exception;
 
 
 

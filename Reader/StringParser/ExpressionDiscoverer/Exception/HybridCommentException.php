@@ -1,6 +1,6 @@
 <?php
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscoverer\Exception;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Exception;
 
 
 /**

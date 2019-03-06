@@ -1,15 +1,15 @@
 <?php
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscoverer\Miscellaneous;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Miscellaneous;
 
 
-use BabyYaml\Reader\StringIterator\StringIterator;
-use BabyYaml\Reader\StringIterator\StringIteratorInterface;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container\OptionalKeyContainerExpressionDiscoverer;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container\ValueContainerExpressionDiscoverer;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\HybridExpressionDiscoverer;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\SimpleQuoteExpressionDiscoverer;
-use BabyYaml\Reader\StringParser\ExpressionDiscovererModel\ExpressionDiscovererModel;
+use Ling\BabyYaml\Reader\StringIterator\StringIterator;
+use Ling\BabyYaml\Reader\StringIterator\StringIteratorInterface;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container\OptionalKeyContainerExpressionDiscoverer;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container\ValueContainerExpressionDiscoverer;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\HybridExpressionDiscoverer;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\SimpleQuoteExpressionDiscoverer;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscovererModel\ExpressionDiscovererModel;
 
 
 /**

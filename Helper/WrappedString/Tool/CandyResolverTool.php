@@ -2,12 +2,12 @@
 
 
 
-namespace BabyYaml\Helper\WrappedString\Tool;
-use BabyYaml\Helper\BdotTool;
-use BabyYaml\Helper\Escaping\Backslash\RecursiveBackslashEscapeTool;
-use BabyYaml\Helper\Escaping\Backslash\SimpleBackslashEscapeTool;
-use BabyYaml\Helper\StringTool;
-use BabyYaml\Helper\WrappedString\Util\WrappedStringResolverUtil;
+namespace Ling\BabyYaml\Helper\WrappedString\Tool;
+use Ling\BabyYaml\Helper\BdotTool;
+use Ling\BabyYaml\Helper\Escaping\Backslash\RecursiveBackslashEscapeTool;
+use Ling\BabyYaml\Helper\Escaping\Backslash\SimpleBackslashEscapeTool;
+use Ling\BabyYaml\Helper\StringTool;
+use Ling\BabyYaml\Helper\WrappedString\Util\WrappedStringResolverUtil;
 
 
 /**

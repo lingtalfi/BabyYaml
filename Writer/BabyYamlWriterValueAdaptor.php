@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Writer;
+namespace Ling\BabyYaml\Writer;
 
 
 /**

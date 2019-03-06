@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Helper\WrappedString\Util\Exception;
+namespace Ling\BabyYaml\Helper\WrappedString\Util\Exception;
 
 
 

@@ -2,7 +2,7 @@
 
 
 
-namespace BabyYaml\Helper\ArrayExportUtil\SymbolsManager;
+namespace Ling\BabyYaml\Helper\ArrayExportUtil\SymbolsManager;
 
 
 /**

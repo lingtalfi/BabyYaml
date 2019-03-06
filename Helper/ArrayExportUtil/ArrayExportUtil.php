@@ -1,9 +1,9 @@
 <?php
 
-namespace BabyYaml\Helper\ArrayExportUtil;
+namespace Ling\BabyYaml\Helper\ArrayExportUtil;
 
-use BabyYaml\Helper\ArrayExportUtil\Exception\ArrayExportUtilException;
-use BabyYaml\Helper\ArrayExportUtil\SymbolsManager\ArrayExportUtilSymbolsManagerInterface;
+use Ling\BabyYaml\Helper\ArrayExportUtil\Exception\ArrayExportUtilException;
+use Ling\BabyYaml\Helper\ArrayExportUtil\SymbolsManager\ArrayExportUtilSymbolsManagerInterface;
 
 
 /**

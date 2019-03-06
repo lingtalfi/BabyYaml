@@ -1,6 +1,6 @@
 <?php
 
-namespace BabyYaml\Reader\StringParser\ExpressionFinder;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionFinder;
 
 
 

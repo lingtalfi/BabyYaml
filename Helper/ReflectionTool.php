@@ -1,7 +1,7 @@
 <?php
 
-namespace BabyYaml\Helper;
-use BabyYaml\Helper\ReflectionParameterUtil\ReflectionParameterUtil;
+namespace Ling\BabyYaml\Helper;
+use Ling\BabyYaml\Helper\ReflectionParameterUtil\ReflectionParameterUtil;
 
 
 /**

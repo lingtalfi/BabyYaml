@@ -1,10 +1,10 @@
 <?php
 
 
-namespace BabyYaml\Helper\Escaping;
-use BabyYaml\Helper\Escaping\Backslash\RecursiveBackslashEscapeTool;
-use BabyYaml\Helper\Escaping\Backslash\SimpleBackslashEscapeTool;
-use BabyYaml\Helper\IntTool;
+namespace Ling\BabyYaml\Helper\Escaping;
+use Ling\BabyYaml\Helper\Escaping\Backslash\RecursiveBackslashEscapeTool;
+use Ling\BabyYaml\Helper\Escaping\Backslash\SimpleBackslashEscapeTool;
+use Ling\BabyYaml\Helper\IntTool;
 
 
 /**

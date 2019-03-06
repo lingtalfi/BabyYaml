@@ -1,6 +1,6 @@
 <?php
 
-namespace BabyYaml\Reader\StringParser\Validator;
+namespace Ling\BabyYaml\Reader\StringParser\Validator;
 
 
 /**

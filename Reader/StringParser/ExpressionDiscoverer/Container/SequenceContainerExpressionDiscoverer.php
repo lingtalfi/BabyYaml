@@ -1,10 +1,10 @@
 <?php
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container;
 
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\HybridExpressionDiscoverer;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\SimpleQuoteExpressionDiscoverer;
-use BabyYaml\Reader\StringParser\ExpressionDiscovererModel\ExpressionDiscovererModel;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\HybridExpressionDiscoverer;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\SimpleQuoteExpressionDiscoverer;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscovererModel\ExpressionDiscovererModel;
 
 
 /**

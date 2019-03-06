@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace BabyYaml\Reader\MiniMl\Util;
+namespace Ling\BabyYaml\Reader\MiniMl\Util;
 
-use BabyYaml\Reader\MiniMl\Formatter\MiniMlFormatterInterface;
+use Ling\BabyYaml\Reader\MiniMl\Formatter\MiniMlFormatterInterface;
 
 
 /**

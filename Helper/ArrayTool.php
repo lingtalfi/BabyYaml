@@ -1,8 +1,8 @@
 <?php
 
 
-namespace BabyYaml\Helper;
-use BabyYaml\Helper\ArrayExportUtil\ArrayExportUtil;
+namespace Ling\BabyYaml\Helper;
+use Ling\BabyYaml\Helper\ArrayExportUtil\ArrayExportUtil;
 
 
 /**

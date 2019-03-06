@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Reader\Exception;
+namespace Ling\BabyYaml\Reader\Exception;
 
 
 class ParseErrorException extends \Exception

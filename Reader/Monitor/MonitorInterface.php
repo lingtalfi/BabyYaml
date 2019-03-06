@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Reader\Monitor;
+namespace Ling\BabyYaml\Reader\Monitor;
 
 
 /**

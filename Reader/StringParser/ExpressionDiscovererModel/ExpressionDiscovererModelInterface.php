@@ -1,8 +1,8 @@
 <?php
 
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscovererModel;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\ExpressionDiscovererInterface;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscovererModel;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\ExpressionDiscovererInterface;
 
 
 /**

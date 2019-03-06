@@ -1,9 +1,9 @@
 <?php
 
 
-namespace BabyYaml\Helper\ReflectionParameterUtil;
-use BabyYaml\Helper\InlineVariableUtil\Adaptor\PhpDocInlineVariableUtilAdaptor;
-use BabyYaml\Helper\InlineVariableUtil\InlineVariableUtil;
+namespace Ling\BabyYaml\Helper\ReflectionParameterUtil;
+use Ling\BabyYaml\Helper\InlineVariableUtil\Adaptor\PhpDocInlineVariableUtilAdaptor;
+use Ling\BabyYaml\Helper\InlineVariableUtil\InlineVariableUtil;
 
 
 /**

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace BabyYaml\Writer;
+namespace Ling\BabyYaml\Writer;
 
 
-use Bat\FileSystemTool;
+use Ling\Bat\FileSystemTool;
 
 /**
  * BabyYamlWriter.

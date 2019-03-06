@@ -1,18 +1,18 @@
 <?php
 
 
-namespace BabyYaml\Reader;
+namespace Ling\BabyYaml\Reader;
 
 
-use BabyYaml\Reader\Exception\ParseErrorException;
-use BabyYaml\Reader\KeyFinder\KeyFinder;
-use BabyYaml\Reader\KeyFinder\KeyFinderInterface;
-use BabyYaml\Reader\MultiLineCompiler\MultiLineCompilerInterface;
-use BabyYaml\Reader\MultiLineCompiler\WithLeftMarginMultiLineCompiler;
-use BabyYaml\Reader\MultiLineDelimiter\MultiLineDelimiterInterface;
-use BabyYaml\Reader\MultiLineDelimiter\SingleCharMultiLineDelimiter;
-use BabyYaml\Reader\Node\Node;
-use BabyYaml\Reader\Node\NodeInterface;
+use Ling\BabyYaml\Reader\Exception\ParseErrorException;
+use Ling\BabyYaml\Reader\KeyFinder\KeyFinder;
+use Ling\BabyYaml\Reader\KeyFinder\KeyFinderInterface;
+use Ling\BabyYaml\Reader\MultiLineCompiler\MultiLineCompilerInterface;
+use Ling\BabyYaml\Reader\MultiLineCompiler\WithLeftMarginMultiLineCompiler;
+use Ling\BabyYaml\Reader\MultiLineDelimiter\MultiLineDelimiterInterface;
+use Ling\BabyYaml\Reader\MultiLineDelimiter\SingleCharMultiLineDelimiter;
+use Ling\BabyYaml\Reader\Node\Node;
+use Ling\BabyYaml\Reader\Node\NodeInterface;
 
 class BabyYamlBuilder
 {

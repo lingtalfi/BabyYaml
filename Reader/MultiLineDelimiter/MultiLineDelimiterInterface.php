@@ -2,7 +2,7 @@
 
 
 
-namespace BabyYaml\Reader\MultiLineDelimiter;
+namespace Ling\BabyYaml\Reader\MultiLineDelimiter;
 
 
 /**

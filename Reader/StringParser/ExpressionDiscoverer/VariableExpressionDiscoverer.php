@@ -1,8 +1,8 @@
 <?php
 
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscoverer;
-use BabyYaml\Helper\Escaping\EscapeTool;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer;
+use Ling\BabyYaml\Helper\Escaping\EscapeTool;
 
 
 /**

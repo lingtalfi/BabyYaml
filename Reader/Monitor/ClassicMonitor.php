@@ -1,7 +1,7 @@
 <?php
 
-namespace BabyYaml\Reader\Monitor;
-use BabyYaml\Reader\MiniMl\Tool\MiniMlTool;
+namespace Ling\BabyYaml\Reader\Monitor;
+use Ling\BabyYaml\Reader\MiniMl\Tool\MiniMlTool;
 
 
 /**

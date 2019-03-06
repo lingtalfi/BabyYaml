@@ -1,10 +1,10 @@
 <?php
 
-namespace BabyYaml\Helper\WrappedString\Util;
-use BabyYaml\Helper\BdotTool;
-use BabyYaml\Helper\WrappedString\Tool\WrappedStringTool;
-use BabyYaml\Helper\WrappedString\Util\Exception\WrappedStringUtilCircularException;
-use BabyYaml\Helper\WrappedString\Util\Exception\WrappedStringUtilException;
+namespace Ling\BabyYaml\Helper\WrappedString\Util;
+use Ling\BabyYaml\Helper\BdotTool;
+use Ling\BabyYaml\Helper\WrappedString\Tool\WrappedStringTool;
+use Ling\BabyYaml\Helper\WrappedString\Util\Exception\WrappedStringUtilCircularException;
+use Ling\BabyYaml\Helper\WrappedString\Util\Exception\WrappedStringUtilException;
 
 
 /**

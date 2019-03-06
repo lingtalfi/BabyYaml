@@ -1,8 +1,8 @@
 <?php
 
 
-namespace BabyYaml\Helper\InlineVariableUtil\Adaptor;
-use BabyYaml\Helper\ArrayTool;
+namespace Ling\BabyYaml\Helper\InlineVariableUtil\Adaptor;
+use Ling\BabyYaml\Helper\ArrayTool;
 
 
 /**

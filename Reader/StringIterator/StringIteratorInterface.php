@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Reader\StringIterator;
+namespace Ling\BabyYaml\Reader\StringIterator;
 
 /**
  * StringIteratorInterface

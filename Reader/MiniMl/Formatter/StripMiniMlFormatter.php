@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Reader\MiniMl\Formatter;
+namespace Ling\BabyYaml\Reader\MiniMl\Formatter;
 
 
 /**

@@ -1,9 +1,9 @@
 <?php
 
 
-namespace BabyYaml\Reader\NodeToArrayConvertor;
-use BabyYaml\Reader\Node\NodeInterface;
-use BabyYaml\Reader\ValueInterpreter\ValueInterpreterInterface;
+namespace Ling\BabyYaml\Reader\NodeToArrayConvertor;
+use Ling\BabyYaml\Reader\Node\NodeInterface;
+use Ling\BabyYaml\Reader\ValueInterpreter\ValueInterpreterInterface;
 
 
 /**

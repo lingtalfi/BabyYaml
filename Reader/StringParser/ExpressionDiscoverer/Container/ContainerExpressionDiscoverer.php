@@ -1,11 +1,11 @@
 <?php
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container;
 
-use BabyYaml\Reader\Monitor\Traits\ClassicMonitorTrait;
-use BabyYaml\Reader\StringIterator\StringIterator;
-use BabyYaml\Reader\StringIterator\StringIteratorInterface;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\ExpressionDiscoverer;
+use Ling\BabyYaml\Reader\Monitor\Traits\ClassicMonitorTrait;
+use Ling\BabyYaml\Reader\StringIterator\StringIterator;
+use Ling\BabyYaml\Reader\StringIterator\StringIteratorInterface;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\ExpressionDiscoverer;
 
 
 

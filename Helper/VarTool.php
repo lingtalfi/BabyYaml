@@ -1,10 +1,10 @@
 <?php
 
-namespace BabyYaml\Helper;
-use BabyYaml\Helper\InlineVariableUtil\Adaptor\CallableInlineVariableUtilAdaptor;
-use BabyYaml\Helper\InlineVariableUtil\Adaptor\ClosureInlineVariableUtilAdaptor;
-use BabyYaml\Helper\InlineVariableUtil\Adaptor\PhpDocInlineVariableUtilAdaptor;
-use BabyYaml\Helper\InlineVariableUtil\InlineVariableUtil;
+namespace Ling\BabyYaml\Helper;
+use Ling\BabyYaml\Helper\InlineVariableUtil\Adaptor\CallableInlineVariableUtilAdaptor;
+use Ling\BabyYaml\Helper\InlineVariableUtil\Adaptor\ClosureInlineVariableUtilAdaptor;
+use Ling\BabyYaml\Helper\InlineVariableUtil\Adaptor\PhpDocInlineVariableUtilAdaptor;
+use Ling\BabyYaml\Helper\InlineVariableUtil\InlineVariableUtil;
 
 
 /**

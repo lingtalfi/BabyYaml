@@ -2,8 +2,8 @@
 
 
 
-namespace BabyYaml\Helper\Escaping\Backslash;
-use BabyYaml\Helper\Escaping\RecursiveEscapeTool;
+namespace Ling\BabyYaml\Helper\Escaping\Backslash;
+use Ling\BabyYaml\Helper\Escaping\RecursiveEscapeTool;
 
 
 /**

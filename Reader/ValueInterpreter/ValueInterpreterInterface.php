@@ -2,7 +2,7 @@
 
 
 
-namespace BabyYaml\Reader\ValueInterpreter;
+namespace Ling\BabyYaml\Reader\ValueInterpreter;
 
 
 /**

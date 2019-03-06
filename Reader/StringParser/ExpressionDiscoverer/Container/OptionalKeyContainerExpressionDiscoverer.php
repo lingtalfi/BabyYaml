@@ -1,14 +1,14 @@
 <?php
 
-namespace BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container;
+namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\Container;
 
 
-use BabyYaml\Helper\VarTool;
-use BabyYaml\Reader\StringIterator\StringIteratorInterface;
-use BabyYaml\Reader\StringParser\ExpressionDiscoverer\GreedyExpressionDiscovererInterface;
-use BabyYaml\Reader\StringParser\ExpressionDiscovererModel\ExpressionDiscovererModelInterface;
-use BabyYaml\Reader\StringParser\Validator\ContainerValidator;
-use BabyYaml\Reader\StringParser\Validator\ValidatorInterface;
+use Ling\BabyYaml\Helper\VarTool;
+use Ling\BabyYaml\Reader\StringIterator\StringIteratorInterface;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer\GreedyExpressionDiscovererInterface;
+use Ling\BabyYaml\Reader\StringParser\ExpressionDiscovererModel\ExpressionDiscovererModelInterface;
+use Ling\BabyYaml\Reader\StringParser\Validator\ContainerValidator;
+use Ling\BabyYaml\Reader\StringParser\Validator\ValidatorInterface;
 
 
 /**

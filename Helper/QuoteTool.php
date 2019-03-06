@@ -2,12 +2,12 @@
 
 
 
-namespace BabyYaml\Helper;
+namespace Ling\BabyYaml\Helper;
 
 
 
-use BabyYaml\Helper\Escaping\EscapeTool;
-use BabyYaml\Helper\WrappedString\Tool\WrappedStringTool;
+use Ling\BabyYaml\Helper\Escaping\EscapeTool;
+use Ling\BabyYaml\Helper\WrappedString\Tool\WrappedStringTool;
 
 
 /**

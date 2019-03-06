@@ -1,14 +1,14 @@
 <?php
 
 
-namespace BabyYaml\Reader;
+namespace Ling\BabyYaml\Reader;
 
 
 
-use BabyYaml\Reader\Exception\ParseErrorException;
-use BabyYaml\Reader\NodeToArrayConvertor\NodeToArrayConvertor;
-use BabyYaml\Reader\ValueInterpreter\BabyYamlValueInterpreter;
-use BabyYaml\Reader\ValueInterpreter\ValueInterpreter;
+use Ling\BabyYaml\Reader\Exception\ParseErrorException;
+use Ling\BabyYaml\Reader\NodeToArrayConvertor\NodeToArrayConvertor;
+use Ling\BabyYaml\Reader\ValueInterpreter\BabyYamlValueInterpreter;
+use Ling\BabyYaml\Reader\ValueInterpreter\ValueInterpreter;
 
 class BabyYamlReader
 {

@@ -2,7 +2,7 @@
 
 
 
-namespace BabyYaml\Reader\Node;
+namespace Ling\BabyYaml\Reader\Node;
 
 /**
  * Node

@@ -20,7 +20,7 @@ Install
 
 Using the [uni tool](https://github.com/lingtalfi/universe-naive-importer)
 ```bash
-uni import BabyYaml
+uni import Ling/BabyYaml
 ```
 
 
@@ -75,7 +75,7 @@ Below is an example of how to read a babyYaml file.
 ```php
 <?php
 
-use BabyYaml\BabyYamlUtil;
+use Ling\BabyYaml\BabyYamlUtil;
 
 require_once "bigbang.php";
 

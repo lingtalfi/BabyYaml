@@ -1,9 +1,9 @@
 <?php
 
 
-namespace BabyYaml\Reader\KeyFinder;
-use BabyYaml\Helper\QuoteTool;
-use BabyYaml\Helper\StringTool;
+namespace Ling\BabyYaml\Reader\KeyFinder;
+use Ling\BabyYaml\Helper\QuoteTool;
+use Ling\BabyYaml\Helper\StringTool;
 
 
 /**

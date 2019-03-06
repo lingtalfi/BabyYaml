@@ -1,8 +1,8 @@
 <?php
 
 
-namespace BabyYaml\Reader\ValueInterpreter;
-use BabyYaml\Helper\StringTool;
+namespace Ling\BabyYaml\Reader\ValueInterpreter;
+use Ling\BabyYaml\Helper\StringTool;
 
 
 /**

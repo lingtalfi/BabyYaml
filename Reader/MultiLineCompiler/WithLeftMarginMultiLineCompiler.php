@@ -1,6 +1,6 @@
 <?php
 
-namespace BabyYaml\Reader\MultiLineCompiler;
+namespace Ling\BabyYaml\Reader\MultiLineCompiler;
 
 
 /**

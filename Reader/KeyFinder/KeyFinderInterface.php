@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BabyYaml\Reader\KeyFinder;
+namespace Ling\BabyYaml\Reader\KeyFinder;
 
 
 /**

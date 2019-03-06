@@ -1,10 +1,10 @@
 <?php
 
-use BabyYaml\BabyYamlUtil;
-use Bat\CaseTool;
-use PhpBeast\AuthorTestAggregator;
-use PhpBeast\PrettyTestInterpreter;
-use PhpBeast\Tool\ComparisonErrorTableTool;
+use Ling\BabyYaml\BabyYamlUtil;
+use Ling\Bat\CaseTool;
+use Ling\PhpBeast\AuthorTestAggregator;
+use Ling\PhpBeast\PrettyTestInterpreter;
+use Ling\PhpBeast\Tool\ComparisonErrorTableTool;
 
 
 require_once "bigbang.php";

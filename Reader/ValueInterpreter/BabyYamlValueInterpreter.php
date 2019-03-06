@@ -2,8 +2,8 @@
 
 
 
-namespace BabyYaml\Reader\ValueInterpreter;
-use BabyYaml\Reader\StringParser\BabyYamlLineExpressionDiscoverer;
+namespace Ling\BabyYaml\Reader\ValueInterpreter;
+use Ling\BabyYaml\Reader\StringParser\BabyYamlLineExpressionDiscoverer;
 
 
 /**
