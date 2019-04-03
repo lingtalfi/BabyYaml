@@ -627,6 +627,10 @@ The implementation is messy and without documentation, but it works.
 History Log
 ===============
     
+- 1.3.1 -- 2019-04-03
+
+    - fix FunctionExpressionDiscoverer declaration problem
+    
 - 1.3.0 -- 2019-04-03
 
     - update BabyYamlUtil::writeFile now returns bool
