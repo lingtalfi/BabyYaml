@@ -627,6 +627,10 @@ The implementation is messy and without documentation, but it works.
 History Log
 ===============
     
+- 1.3.0 -- 2019-04-03
+
+    - update BabyYamlUtil::writeFile now returns bool
+    
 - 1.2.2 -- 2019-04-02
 
     - fix InlineArgsArrayExportUtilSymbolsManager not found
