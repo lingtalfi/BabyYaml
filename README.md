@@ -627,6 +627,10 @@ The implementation is messy and without documentation, but it works.
 History Log
 ===============
     
+- 1.3.3 -- 2019-05-03
+
+    - fix BabyYamlWriterValueAdaptor not protecting comments with double quotes
+    
 - 1.3.2 -- 2019-05-02
 
     - fix BabyYamlUtil::readFile interpreting the value of a multiline
