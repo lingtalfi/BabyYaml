@@ -627,6 +627,10 @@ The implementation is messy and without documentation, but it works.
 History Log
 ===============
     
+- 1.3.4 -- 2019-05-10
+
+    - fix BabyYamlWriter wrong indent for multiline ending caret 
+    
 - 1.3.3 -- 2019-05-03
 
     - fix BabyYamlWriterValueAdaptor not protecting comments with double quotes
