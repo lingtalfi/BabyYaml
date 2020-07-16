@@ -4,6 +4,7 @@
 namespace Ling\BabyYaml;
 
 
+use Ling\BabyYaml\Parser\BabyYamlCommentsParser;
 use Ling\BabyYaml\Reader\BabyYamlReader;
 use Ling\BabyYaml\Reader\Exception\ParseErrorException;
 use Ling\BabyYaml\Writer\BabyYamlWriter;
@@ -96,27 +97,68 @@ class BabyYamlUtil
 
 
     /**
-     * Writes the given $data array to the $file.
+     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) array from the given babyYaml string.
      *
-     * @param array $data
-     * @param string $file
-     * @return bool
+     *
+     * @param string $string
+     * @return array
      */
-    public static function writeFile(array $data, string $file): bool
+    public static function getCommentsMap(string $string): array
     {
-        return self::getWInst()->export($data, $file);
+        $o = new BabyYamlCommentsParser();
+        return $o->parseString($string);
     }
 
 
     /**
-     * Returns the BabyYaml string corresponding to the  given $data array.
+     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) array from the given babyYaml file.
+     *
+     *
+     * @param string $file
+     * @return array
+     */
+    public static function getCommentsMapByFile(string $file): array
+    {
+        $o = new BabyYamlCommentsParser();
+        return $o->parseFile($file);
+    }
+
+
+    /**
+     * Writes the given $data array to the $file.
+     *
+     * Available options are:
+     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) can be passed.
+     *      If so, it's re-injected in the given file.
+     *
+     *
+     *
+     *
+     * @param array $data
+     * @param string $file
+     * @param array $options
+     * @return bool
+     */
+    public static function writeFile(array $data, string $file, array $options = []): bool
+    {
+        return self::getWInst()->export($data, $file, $options);
+    }
+
+
+    /**
+     * Returns the BabyYaml string corresponding to the given $data array.
+     *
+     * Available options are:
+     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) can be passed.
+     *      If so, it's re-injected in the given file.
      *
      * @param array $data
      * @return string
      */
-    public static function getBabyYamlString(array $data): string
+    public static function getBabyYamlString(array $data, array $options=[]): string
     {
-        return self::getWInst()->export($data);
+        return self::getWInst()->export($data, null, $options);
     }
+
 
 }

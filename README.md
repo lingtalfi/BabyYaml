@@ -1,6 +1,6 @@
 BabyYaml
 ============
-2016-12-28
+2016-12-28 -> 2020-07-16
 
 
 php implementation of a babyYaml reader.
@@ -42,6 +42,8 @@ Summary
     - [Comments](#comments)
 
 - [Note](#note)
+- Pages
+    - [comments-parser.md](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md)
 - [History Log](#history-log)
 
 
@@ -536,8 +538,8 @@ When you are done, go to the next line and close the angular bracket.
 ```yaml
 doo: null
 roo: <
-this is a multiline
-this is a multiline
+    this is a multiline
+    this is a multiline
 >
 joo: eee
 
@@ -570,8 +572,7 @@ Comments start with the hash symbol (#).
 
 Comments can be written on their own line, or at the end of a value.
 
-If a comment is written at the end of a value, the hash symbol (#) must be preceded by a space. 
- 
+If a comment is written at the end of a value, the hash symbol (#) must be preceded by a space.  
  
 This yaml file:
 
@@ -584,7 +585,7 @@ true: true
 false: "ji # not a comment"
 dup: ji # is a comment
 arr: [soo] # this is a comment
-glued: this is#not a comment
+glued: this is#not a comment, because no space preceding the hash symbol
 
 
 ```
@@ -611,6 +612,9 @@ $defs = [
 
 
 
+
+
+
 Note
 ============
 
@@ -626,6 +630,11 @@ The implementation is messy and without documentation, but it works.
 
 History Log
 ===============
+    
+- 1.5.0 -- 2020-07-16
+
+    - fix comment symbol not working properly when placed after multiline comment opening/closing symbols  
+    - add tools for comments  
     
 - 1.4.1 -- 2019-11-20
 
