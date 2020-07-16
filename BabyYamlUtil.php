@@ -97,7 +97,7 @@ class BabyYamlUtil
 
 
     /**
-     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) array from the given babyYaml string.
+     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) array from the given babyYaml string.
      *
      *
      * @param string $string
@@ -111,7 +111,7 @@ class BabyYamlUtil
 
 
     /**
-     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) array from the given babyYaml file.
+     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) array from the given babyYaml file.
      *
      *
      * @param string $file
@@ -128,7 +128,7 @@ class BabyYamlUtil
      * Writes the given $data array to the $file.
      *
      * Available options are:
-     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) can be passed.
+     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) can be passed.
      *      If so, it's re-injected in the given file.
      *
      *
@@ -149,7 +149,7 @@ class BabyYamlUtil
      * Returns the BabyYaml string corresponding to the given $data array.
      *
      * Available options are:
-     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) can be passed.
+     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) can be passed.
      *      If so, it's re-injected in the given file.
      *
      * @param array $data

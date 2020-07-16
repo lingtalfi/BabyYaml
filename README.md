@@ -43,7 +43,7 @@ Summary
 
 - [Note](#note)
 - Pages
-    - [comments-parser.md](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md)
+    - [comments-parser.md](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md)
 - [History Log](#history-log)
 
 
@@ -630,6 +630,10 @@ The implementation is messy and without documentation, but it works.
 
 History Log
 ===============
+    
+- 1.5.1 -- 2020-07-16
+
+    - fix doc links  
     
 - 1.5.0 -- 2020-07-16
 

@@ -13,7 +13,7 @@ class BabyYamlCommentsParser
 
 
     /**
-     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) from the given string.
+     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) from the given string.
      *
      * @param string $string
      * @return array
@@ -27,7 +27,7 @@ class BabyYamlCommentsParser
 
 
     /**
-     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) from the given file.
+     * Returns a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) from the given file.
      *
      * @param string $file
      * @return array

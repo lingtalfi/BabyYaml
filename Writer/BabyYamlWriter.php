@@ -33,7 +33,7 @@ class BabyYamlWriter
      * If file is given, will write the babyYaml dump to the given file.
      *
      * Available options are:
-     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/doc/pages/comments-parser.md) can be passed.
+     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) can be passed.
      *      If so, it's re-injected in the given file.
      *
      *
