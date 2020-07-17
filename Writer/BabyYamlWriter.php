@@ -5,6 +5,7 @@ namespace Ling\BabyYaml\Writer;
 
 
 use Ling\BabyYaml\Exception\BabyYamlException;
+use Ling\BabyYaml\Helper\BdotTool;
 use Ling\Bat\FileSystemTool;
 
 /**
@@ -32,9 +33,7 @@ class BabyYamlWriter
      * If file is null, will return the babyYaml dump.
      * If file is given, will write the babyYaml dump to the given file.
      *
-     * Available options are:
-     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/node-info-parser.md) can be passed.
-     *      If so, it's re-injected in the given file.
+     * Available options are the same as the BabyYamlUtil::writeFile method.
      *
      *
      *
@@ -70,6 +69,36 @@ class BabyYamlWriter
      */
     private function getBabyYamlFromArray(array $array, array $options = []): string
     {
+        $nodeInfoMap = $options['nodeInfoMap'] ?? null;
+        $updatedSequencePaths = [];
+        $updatedMappingPaths = [];
+        if ($nodeInfoMap) {
+
+            foreach ($nodeInfoMap as $key => $node) {
+                if (array_key_exists("type", $node)) {
+                    $type = $node['type'];
+                    if ('sequence' === $type) {
+                        $realValue = $node['realValue'];
+                        $newVal = BdotTool::getDotValue($key, $array, []);
+                        if ($newVal !== $realValue) {
+                            $updatedSequencePaths[] = $key;
+                        }
+                    } elseif ('mapping' === $type) {
+                        $realValue = $node['realValue'];
+                        $newVal = BdotTool::getDotValue($key, $array, []);
+                        if ($newVal !== $realValue) {
+                            $updatedMappingPaths[] = $key;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        $options['updatedSequencePaths'] = $updatedSequencePaths;
+        $options['updatedMappingPaths'] = $updatedMappingPaths;
+
+
         $s = rtrim($this->getNodeContent($array, 0, 0, [], $options), PHP_EOL);
         return $s;
     }
@@ -93,13 +122,20 @@ class BabyYamlWriter
 
 
         $nodeInfoMap = $options['nodeInfoMap'] ?? null;
+        $userComments = $options['comments'] ?? [];
+        $updatedSequencePaths = $options['updatedSequencePaths'] ?? [];
+        $updatedMappingPaths = $options['updatedMappingPaths'] ?? [];
 
 
         $s = '';
         foreach ($config as $k => $v) {
 
+            $valueToProcess = $v;
+
+
             $breadcrumbs[] = str_replace('.', '\\.', $k);
             $currentPath = implode('.', $breadcrumbs);
+
 
             $nodeInfo = [];
             $valueType = null;
@@ -107,6 +143,8 @@ class BabyYamlWriter
             $literalOptions = [];
 
 
+            // comments from the map
+            //--------------------------------------------
             $commentItems = [];
             if (null !== $nodeInfoMap) {
                 if (array_key_exists($currentPath, $nodeInfoMap)) {
@@ -121,6 +159,55 @@ class BabyYamlWriter
             }
 
 
+            // user comment override
+            //--------------------------------------------
+            if (array_key_exists($currentPath, $userComments)) {
+                $userCommentInfo = $userComments[$currentPath];
+                if (array_key_exists('inline', $userCommentInfo)) {
+                    foreach ($commentItems as $k8 => $commentItem) {
+                        if (
+                            'inline-value' === $commentItem[0] ||
+                            'inline' === $commentItem[0]
+                        ) {
+                            unset($commentItems[$k8]);
+                        }
+                    }
+
+                    $this->checkUserComment($userCommentInfo['inline']);
+                    $text = $userCommentInfo['inline'];
+                    // don't forget the crucial prefix space for inline values, if the user didnt' set one
+                    if (
+                        ' ' !== substr($text, 0, 1) &&
+                        "\t" !== substr($text, 0, 1)
+                    ) {
+                        $text = ' ' . $text;
+                    }
+
+                    $commentItems[] = [
+                        'inline-value',
+
+                        $text,
+                    ];
+                }
+                if (array_key_exists('block', $userCommentInfo)) {
+                    foreach ($commentItems as $k8 => $commentItem) {
+                        if ('block' === $commentItem[0]) {
+                            unset($commentItems[$k8]);
+                        }
+                    }
+                    foreach ($userCommentInfo['block'] as $text) {
+                        $this->checkUserComment($text);
+                        $commentItems[] = [
+                            'block',
+                            $text,
+                        ];
+                    }
+                }
+            }
+
+
+            // special treatment if nodeInfoMap was provided
+            //--------------------------------------------
             if ('multi' === $valueType) {
                 $literalOptions['forceMulti'] = true;
                 foreach ($commentItems as $commentItem) {
@@ -139,15 +226,30 @@ class BabyYamlWriter
                 /**
                  * Note that the original value includes the inline comments...
                  */
-                if (array_key_exists("originalValue", $nodeInfo)) {
-                    $v = $nodeInfo['originalValue'];
+                if (array_key_exists("value", $nodeInfo)) {
+
+                    if (
+                        ("sequence" === $valueType && in_array($currentPath, $updatedSequencePaths)) ||
+                        ("mapping" === $valueType && in_array($currentPath, $updatedMappingPaths))
+                    ) {
+                        /**
+                         * The inline sequence has been modified, we will now write it in its expanded form,
+                         * which is the default
+                         */
+                    } else {
+                        $valueToProcess = $nodeInfo['value'];
+                        $valueAlreadyProcessed = true;
+                    }
                 } else {
                     throw new BabyYamlException("As for now, you're expected to provide the originalValue along with the type, see the node-info-parser.md documentation for more info.");
                 }
-                $valueAlreadyProcessed = true;
             }
 
 
+            //--------------------------------------------
+            // REGULAR LOOP
+            //--------------------------------------------
+            $v = $valueToProcess;
             $this->appendComments($s, $commentItems, 'block');
 
 
@@ -175,14 +277,14 @@ class BabyYamlWriter
                         }
                         $s .= $this->tab($level);
                     } else {
-                        $s .= $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
+                        $s .= $this->toLiteral($valueToProcess, $level, $valueAlreadyProcessed, $literalOptions);
 
                     }
 
                     $s .= $this->eol();
                 } else {
-                    $s .= $this->tab($level) . $prefix . $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
-                    // comments already covered by originalValue
+                    $s .= $this->tab($level) . $prefix . $this->toLiteral($valueToProcess, $level, $valueAlreadyProcessed, $literalOptions);
+                    $this->appendComments($s, $commentItems, 'inline-value');
                     $s .= $this->eol();
                 }
                 $n++;
@@ -202,14 +304,15 @@ class BabyYamlWriter
                         }
                         $s .= $this->tab($level);
                     } else {
-                        $s .= $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
+                        $s .= $this->toLiteral($valueToProcess, $level, $valueAlreadyProcessed, $literalOptions);
                     }
                     $s .= $this->eol();
                 } else {
                     if (false !== strpos($k, ':')) {
                         $k = '"' . str_replace('"', '\"', $k) . '"';
                     }
-                    $s .= $this->tab($level) . $k . ': ' . $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
+                    $s .= $this->tab($level) . $k . ': ' . $this->toLiteral($valueToProcess, $level, $valueAlreadyProcessed, $literalOptions);
+                    $this->appendComments($s, $commentItems, 'inline-value');
                     $s .= $this->eol();
                 }
             }
@@ -282,7 +385,7 @@ class BabyYamlWriter
     private function appendComments(string &$s, array $commentItems, string $kind)
     {
         foreach ($commentItems as $commentItem) {
-            list($type, $comment, $isBegin) = $commentItem;
+            list($type, $comment) = $commentItem;
 
             switch ($kind) {
                 case "block":
@@ -291,7 +394,8 @@ class BabyYamlWriter
                     }
                     break;
                 case "inline":
-                    if ('inline' === $type) {
+                case "inline-value":
+                    if ($kind === $type) {
                         $s .= $comment;
                     }
                     break;
@@ -317,6 +421,18 @@ class BabyYamlWriter
     {
         if (true === $this->formatCode) {
             return $this->eol;
+        }
+    }
+
+    /**
+     * Checks that the given user comment's first non-whitespace symbol is a hash symbol, or throws an exception if that's not the case.
+     * @param string $comment
+     * @throws \Exception
+     */
+    private function checkUserComment(string $comment)
+    {
+        if ('#' !== substr(ltrim($comment), 0, 1)) {
+            throw new BabyYamlException("A comment must start with the hash symbol (#), \"$comment\" given.");
         }
     }
 }

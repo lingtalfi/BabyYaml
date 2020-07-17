@@ -33,7 +33,7 @@ when rewriting a babyYaml file from scratch.
 
 
 
-So now, to update a file, we can do this:
+So now, to update a file, we can do this (note the "comments" property, which makes it easier to add custom comments):
 
 
 ```php
@@ -45,18 +45,32 @@ use Ling\BabyYaml\BabyYamlUtil;
 require_once "app.init.inc.php";
 
 
-$file = "/komin/jin_site_demo/config/services/Light_Train.byml";
-$file2 = "/komin/jin_site_demo/config/services/Light_Train2.byml";
+$file = __DIR__ . "/../config/services/Light_Train.byml";
+$file2 = __DIR__ . "/../config/services/Light_Train2.byml";
 
 
 $config = BabyYamlUtil::readFile($file);
 list($config, $nodeInfoMap) = BabyYamlUtil::parseNodeInfoByFile($file);
 
 
+//az($nodeInfoMap);
+
+
 $config['train']['methods']['setOptions']['options']["theLastOption"] = "marijuana"; // updating the config...
+$config['train']['methods']['setOptions']['options']["sequence"][] = "topic";
+
 
 BabyYamlUtil::writeFile($config, $file2, [
     "nodeInfoMap" => $nodeInfoMap,
+    "comments" => [
+        "train.methods.setOptions.options.useDebug" => [
+            "inline" => "       # an inline comment, with controlled indentation",
+            "block" => [
+                "# jiji",
+                "# jojo",
+            ],
+        ],
+    ],
 ]);
 
 
@@ -103,9 +117,8 @@ With **node info** contains various information about a specific node:
     - mapping
     - multi
     
-
-- originalValue: string, the original value as written in the babyYaml file (or string)
-- value: string, the interpreted value
+- value: string, the original value as written in the babyYaml array (or string), but without the comment
+- realValue: mixed, the interpreted value
 
 - comments: array of [commentItems](#commentitem)
 

@@ -4,7 +4,6 @@
 namespace Ling\BabyYaml;
 
 
-use Ling\BabyYaml\Parser\BabyYamlCommentsParser;
 use Ling\BabyYaml\Parser\BabyYamlNodeInfoParser;
 use Ling\BabyYaml\Reader\BabyYamlReader;
 use Ling\BabyYaml\Reader\Exception\ParseErrorException;
@@ -127,8 +126,16 @@ class BabyYamlUtil
      * Writes the given $data array to the $file.
      *
      * Available options are:
-     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/node-info-parser.md) can be passed.
+     * - nodeInfoMAp: a [nodeInfoMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/node-info-parser.md) can be passed.
      *      If so, it's re-injected in the given file.
+     *
+     * - comments: array, use this to update comments on the fly.
+     *      It's an array of path => commentInfo, with:
+     *      - path: string the bdot path representing the key of the comment to update
+     *      - commentInfo: an array containing the following (all optional):
+     *          - inline: string, the inline comment to set (will replace the current inline comment if any)
+     *          - block: array of strings, the block comments to set (will replace the current block comments if any)
+     *
      *
      *
      *

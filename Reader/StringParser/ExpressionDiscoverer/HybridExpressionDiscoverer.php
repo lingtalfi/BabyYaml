@@ -103,6 +103,7 @@ class HybridExpressionDiscoverer extends ExpressionDiscoverer implements GreedyE
         $this->value = $value;
         $this->pos = $pos;
 
+
         return true;
     }
 

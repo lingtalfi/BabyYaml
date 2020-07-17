@@ -42,10 +42,27 @@ class BabyYamlNodeInfoReader extends BabyYamlReader
         }
 
         foreach ($types as $key => $types) {
+            $realValue = $types[1];
+            $originalValue = $types[2];
+            $value = $originalValue;
+
+            if (array_key_exists($key, $commentsMap)) {
+                $commentItems = $commentsMap[$key];
+                foreach ($commentItems as $commentItem) {
+                    if ('inline-value' === $commentItem[0]) {
+                        $commentLen = mb_strlen($commentItem[1]);
+                        $commentPos = mb_strlen($value) - $commentLen;
+                        $value = substr($value, 0, $commentPos);
+                        break;
+                    }
+                }
+            }
+
             $ret[$key]['type'] = $types[0];
             $ret[$key]['keyType'] = $types[3];
-            $ret[$key]['originalValue'] = $types[2];
-            $ret[$key]['value'] = $types[1];
+            $ret[$key]['value'] = $value;
+            $ret[$key]['realValue'] = $realValue;
+
         }
 
 

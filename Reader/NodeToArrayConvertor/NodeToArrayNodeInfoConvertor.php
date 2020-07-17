@@ -125,8 +125,7 @@ class NodeToArrayNodeInfoConvertor implements NodeToArrayConvertorInterface
 
             $valueType = null;
             $keyType = 'manual';
-            $nodeValue = null;
-
+            $nodeValue = $node->getValue();
 
             //--------------------------------------------
             // ADD COMMENTS
@@ -151,9 +150,6 @@ class NodeToArrayNodeInfoConvertor implements NodeToArrayConvertorInterface
 
 
             $this->_previousCurrentPath = $currentPath;
-
-
-            $nodeValue = $node->getValue();
 
 
             if (false === $node->isMultiline()) {

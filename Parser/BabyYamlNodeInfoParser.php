@@ -26,12 +26,13 @@ class BabyYamlNodeInfoParser
      */
     public function parseString(string $string): array
     {
-        throw new \Exception("todo: here...");
-
-
         $reader = new BabyYamlNodeInfoReader();
         $config = $reader->readString($string);
-        $commentsMap = $reader->getCommentsMap();
+        $nodeInfoMap = $reader->getNodeInfoMap();
+        return [
+            $config,
+            $nodeInfoMap,
+        ];
     }
 
 

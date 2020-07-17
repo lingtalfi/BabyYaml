@@ -62,6 +62,24 @@ class HybridNodeInfoExpressionDiscoverer extends HybridExpressionDiscoverer impl
     }
 
 
+    /**
+     * @overrides
+     */
+    public function parse($string, $pos = 0)
+    {
+        $ret = parent::parse($string, $pos);
+        if (true === $ret) {
+            if (null !== $this->onSuccess) {
+                call_user_func($this->onSuccess);
+            }
+        }
+        return $ret;
+    }
+
+
+
+
+
 
 
 
@@ -88,17 +106,4 @@ class HybridNodeInfoExpressionDiscoverer extends HybridExpressionDiscoverer impl
         }
 
     }
-
-
-    /**
-     * @overrides
-     */
-    protected function resolveValue($v)
-    {
-        if (null !== $this->onSuccess) {
-            call_user_func($this->onSuccess);
-        }
-        return parent::resolveValue($v);
-    }
-
 }
