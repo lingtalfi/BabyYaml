@@ -676,7 +676,7 @@ Note
 
 
 It's an old implementation "stolen/quickly adapted" from my older framework [bee](https://github.com/lingtalfi/bee/tree/master/bee/modules/Bee/Notation/File/BabyYaml).
-The implementation is messy and without documentation, but it works.
+The implementation is messy and without too much documentation, but it works.
 
 
 
