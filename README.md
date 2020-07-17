@@ -689,7 +689,7 @@ History Log
 ===============
    
     
-- 1.7.0 -- 2020-07-17
+- 1.7.2 -- 2020-07-17
 
     - add comments option to BabyYamlUtil::writeFile, fix some bugs
     
