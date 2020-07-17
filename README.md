@@ -688,6 +688,10 @@ The implementation is messy and without documentation, but it works.
 History Log
 ===============
     
+- 1.7.1 -- 2020-07-17
+
+    - force commit
+    
 - 1.7.0 -- 2020-07-17
 
     - add comments option to BabyYamlUtil::writeFile, fix some bugs
