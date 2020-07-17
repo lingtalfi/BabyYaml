@@ -3,12 +3,10 @@
 namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer;
 
 
-use Ling\BabyYaml\Exception\BabyYamlException;
-
 /**
- * SimpleQuoteCommentsExpressionDiscoverer
+ * SimpleQuoteNodeInfoExpressionDiscoverer
  */
-class SimpleQuoteCommentsExpressionDiscoverer extends SimpleQuoteExpressionDiscoverer
+class SimpleQuoteNodeInfoExpressionDiscoverer extends SimpleQuoteExpressionDiscoverer
 {
 
 
@@ -18,6 +16,14 @@ class SimpleQuoteCommentsExpressionDiscoverer extends SimpleQuoteExpressionDisco
      */
     protected $comments = [];
 
+
+    /**
+     * This property holds the onSuccess for this instance.
+     * @var callable|null
+     */
+    protected $onSuccess = null;
+
+
     /**
      * @overrides
      */
@@ -25,6 +31,7 @@ class SimpleQuoteCommentsExpressionDiscoverer extends SimpleQuoteExpressionDisco
     {
         parent::__construct();
         $this->comments = [];
+        $this->onSuccess = null;
     }
 
 
@@ -46,6 +53,18 @@ class SimpleQuoteCommentsExpressionDiscoverer extends SimpleQuoteExpressionDisco
         $this->comments = [];
     }
 
+    /**
+     * Sets the onSuccess.
+     *
+     * @param callable $onSuccess
+     */
+    public function setOnSuccess(?callable $onSuccess)
+    {
+        $this->onSuccess = $onSuccess;
+    }
+
+
+
 
 
     //--------------------------------------------
@@ -64,8 +83,10 @@ class SimpleQuoteCommentsExpressionDiscoverer extends SimpleQuoteExpressionDisco
                 'inline-value',
                 $comment,
             ];
-        } else {
-            throw new BabyYamlException("You shouldn't see this message..., good luck");
+        }
+
+        if (null !== $this->onSuccess) {
+            call_user_func($this->onSuccess);
         }
     }
 

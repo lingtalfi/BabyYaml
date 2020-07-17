@@ -33,7 +33,7 @@ class BabyYamlWriter
      * If file is given, will write the babyYaml dump to the given file.
      *
      * Available options are:
-     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/comments-parser.md) can be passed.
+     * - commentsMap: a [commentsMap](https://github.com/lingtalfi/BabyYaml/blob/master/personal/mydoc/pages/node-info-parser.md) can be passed.
      *      If so, it's re-injected in the given file.
      *
      *
@@ -92,28 +92,63 @@ class BabyYamlWriter
     {
 
 
-        $commentsMap = $options['commentsMap'] ?? null;
-
-
-//        /**
-//         * todo: remove this...
-//         * todo: remove this...
-//         * todo: remove this...
-//         */
-        if (null === $commentsMap) {
-            return "";
-        }
+        $nodeInfoMap = $options['nodeInfoMap'] ?? null;
 
 
         $s = '';
         foreach ($config as $k => $v) {
 
             $breadcrumbs[] = str_replace('.', '\\.', $k);
-
             $currentPath = implode('.', $breadcrumbs);
-            if (null !== $commentsMap) {
-                $this->appendComments($s, $currentPath, $commentsMap, 'block');
+
+            $nodeInfo = [];
+            $valueType = null;
+            $valueAlreadyProcessed = false;
+            $literalOptions = [];
+
+
+            $commentItems = [];
+            if (null !== $nodeInfoMap) {
+                if (array_key_exists($currentPath, $nodeInfoMap)) {
+                    $nodeInfo = $nodeInfoMap[$currentPath];
+                    if (array_key_exists("comments", $nodeInfo)) {
+                        $commentItems = $nodeInfo['comments'];
+                    }
+                    if (array_key_exists("type", $nodeInfo)) {
+                        $valueType = $nodeInfo['type'];
+                    }
+                }
             }
+
+
+            if ('multi' === $valueType) {
+                $literalOptions['forceMulti'] = true;
+                foreach ($commentItems as $commentItem) {
+                    if ('multi-top' === $commentItem[0]) {
+                        $literalOptions['multiTopComment'] = $commentItem[1];
+                    } elseif ('multi-bottom' === $commentItem[0]) {
+                        $literalOptions['multiBottomComment'] = $commentItem[1];
+                    }
+                }
+            } elseif (in_array($valueType, [
+                'hybrid',
+                'quote',
+                'mapping',
+                'sequence',
+            ])) {
+                /**
+                 * Note that the original value includes the inline comments...
+                 */
+                if (array_key_exists("originalValue", $nodeInfo)) {
+                    $v = $nodeInfo['originalValue'];
+                } else {
+                    throw new BabyYamlException("As for now, you're expected to provide the originalValue along with the type, see the node-info-parser.md documentation for more info.");
+                }
+                $valueAlreadyProcessed = true;
+            }
+
+
+            $this->appendComments($s, $commentItems, 'block');
 
 
             if (is_numeric($k)) {
@@ -128,6 +163,9 @@ class BabyYamlWriter
 
                 if (is_array($v)) {
                     $s .= $this->tab($level) . $prefix;
+                    $this->appendComments($s, $commentItems, 'inline');
+
+
                     if ($v) {
                         $p = 0;
                         $s .= $this->eol();
@@ -137,17 +175,14 @@ class BabyYamlWriter
                         }
                         $s .= $this->tab($level);
                     } else {
-                        $s .= $this->toLiteral($v, $level);
-                        if (null !== $commentsMap) {
-                            $this->appendComments($s, $currentPath, $commentsMap, 'after-dash');
-                        }
+                        $s .= $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
+
                     }
+
                     $s .= $this->eol();
                 } else {
-                    $s .= $this->tab($level) . $prefix . $this->toLiteral($v, $level);
-                    if (null !== $commentsMap) {
-                        $this->appendComments($s, $currentPath, $commentsMap, 'after-dash');
-                    }
+                    $s .= $this->tab($level) . $prefix . $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
+                    // comments already covered by originalValue
                     $s .= $this->eol();
                 }
                 $n++;
@@ -155,6 +190,9 @@ class BabyYamlWriter
 
                 if (is_array($v)) {
                     $s .= $this->tab($level) . $k . ': ';
+                    $this->appendComments($s, $commentItems, 'inline');
+
+
                     if ($v) {
                         $p = 0;
                         $s .= $this->eol();
@@ -164,20 +202,14 @@ class BabyYamlWriter
                         }
                         $s .= $this->tab($level);
                     } else {
-                        $s .= $this->toLiteral($v, $level);
-                        if (null !== $commentsMap) {
-                            $this->appendComments($s, $currentPath, $commentsMap, 'inline2');
-                        }
+                        $s .= $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
                     }
                     $s .= $this->eol();
                 } else {
                     if (false !== strpos($k, ':')) {
                         $k = '"' . str_replace('"', '\"', $k) . '"';
                     }
-                    $s .= $this->tab($level) . $k . ': ' . $this->toLiteral($v, $level);
-                    if (null !== $commentsMap) {
-                        $this->appendComments($s, $currentPath, $commentsMap, 'inline');
-                    }
+                    $s .= $this->tab($level) . $k . ': ' . $this->toLiteral($v, $level, $valueAlreadyProcessed, $literalOptions);
                     $s .= $this->eol();
                 }
             }
@@ -192,12 +224,44 @@ class BabyYamlWriter
     //------------------------------------------------------------------------------/
     //
     //------------------------------------------------------------------------------/
-    private function toLiteral($scalar, $level)
+    /**
+     *
+     * Available options are:
+     * - forceMulti: bool=false, whether to force the writing of the value as a multi
+     * - multiTopComment: string=null, the multi top comment
+     * - multiBottomComment: string=null, the multi bottom comment
+     *
+     *
+     *
+     * @param $scalar
+     * @param $level
+     * @param bool $valueAlreadyProcessed
+     * @param array $options
+     * @return int|string
+     */
+    private function toLiteral($scalar, $level, bool $valueAlreadyProcessed = false, array $options = [])
     {
-        if (is_string($scalar) && false !== strpos($scalar, $this->eol())) {
+        if (true === $valueAlreadyProcessed) {
+            return $scalar;
+        }
+
+        $forceMulti = $options["forceMulti"] ?? false;
+        if (is_string($scalar) &&
+            (
+                true === $forceMulti ||
+                false !== strpos($scalar, $this->eol())
+            )
+        ) {
+
+            $multiTopComment = $options['multiTopComment'] ?? '';
+            $multiBottomComment = $options['multiBottomComment'] ?? '';
+
+
             // adding 4 extra spaces (compared to the parent key's beginning) at the beginning of each line
             $nbSpaces = ($level * 4) + 4;
-            $s = '<' . $this->eol();
+            $s = '<' . $multiTopComment;
+
+            $s .= $this->eol();
             $p = explode($this->eol(), $scalar);
             foreach ($p as $v) {
                 $t = trim($v);
@@ -206,7 +270,7 @@ class BabyYamlWriter
                 }
                 $s .= $v . $this->eol();
             }
-            $s .= str_repeat(' ', $level * 4) . '>';
+            $s .= str_repeat(' ', $level * 4) . '>' . $multiBottomComment;
             $v = $s;
         } else {
             $v = $this->valueAdaptor->getValue($scalar);
@@ -215,30 +279,25 @@ class BabyYamlWriter
     }
 
 
-    private function appendComments(string &$s, string $currentPath, array $commentsMap, string $kind)
+    private function appendComments(string &$s, array $commentItems, string $kind)
     {
+        foreach ($commentItems as $commentItem) {
+            list($type, $comment, $isBegin) = $commentItem;
 
-        if (array_key_exists($currentPath, $commentsMap)) {
-            $commentItems = $commentsMap[$currentPath];
-            foreach ($commentItems as $commentItem) {
-                list($type, $comment, $isBegin) = $commentItem;
-
-                switch ($kind) {
-                    case "block":
-                        if ('block' === $type) {
-                            $s .= $comment . PHP_EOL;
-                        }
-                        break;
-                    case "after-dash":
-                    case "inline":
-                        if ('inline-value' === $type) {
-                            $s .= $comment;
-                        }
-                        break;
-                    default:
-                        throw new BabyYamlException("Unknown kind $kind.");
-                        break;
-                }
+            switch ($kind) {
+                case "block":
+                    if ('block' === $type) {
+                        $s .= $comment . PHP_EOL;
+                    }
+                    break;
+                case "inline":
+                    if ('inline' === $type) {
+                        $s .= $comment;
+                    }
+                    break;
+                default:
+                    throw new BabyYamlException("Unknown kind $kind.");
+                    break;
             }
         }
     }

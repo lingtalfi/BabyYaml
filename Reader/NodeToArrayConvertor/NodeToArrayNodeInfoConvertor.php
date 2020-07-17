@@ -3,16 +3,17 @@
 namespace Ling\BabyYaml\Reader\NodeToArrayConvertor;
 
 use Ling\BabyYaml\Exception\BabyYamlException;
+use Ling\BabyYaml\Reader\Node\NodeInfoNode;
 use Ling\BabyYaml\Reader\Node\NodeInterface;
-use Ling\BabyYaml\Reader\ValueInterpreter\BabyYamlValueCommentInterpreter;
+use Ling\BabyYaml\Reader\ValueInterpreter\BabyYamlValueNodeInfoInterpreter;
 use Ling\BabyYaml\Reader\ValueInterpreter\ValueInterpreterInterface;
 
 
 /**
- * NodeToArrayCommentsConvertor
+ * NodeToArrayNodeInfoConvertor
  *
  */
-class NodeToArrayCommentsConvertor implements NodeToArrayConvertorInterface
+class NodeToArrayNodeInfoConvertor implements NodeToArrayConvertorInterface
 {
 
 
@@ -24,6 +25,15 @@ class NodeToArrayCommentsConvertor implements NodeToArrayConvertorInterface
      * @var array
      */
     protected $comments;
+
+    /**
+     * This property holds the types for this instance.
+     *
+     * An array of bdotPath => [type, value, nodeValue, keyType]
+     *
+     * @var array
+     */
+    protected $types;
 
     /**
      * This property holds the _previousCurrentPath for this instance.
@@ -47,7 +57,7 @@ class NodeToArrayCommentsConvertor implements NodeToArrayConvertorInterface
      */
     public function convert(NodeInterface $node, ValueInterpreterInterface $interpreter)
     {
-        if ($interpreter instanceof BabyYamlValueCommentInterpreter) {
+        if ($interpreter instanceof BabyYamlValueNodeInfoInterpreter) {
 
             $breadcrumbs = [];
             $res = $this->resolveChildren($node->getChildren(), $interpreter, $breadcrumbs);
@@ -57,10 +67,6 @@ class NodeToArrayCommentsConvertor implements NodeToArrayConvertorInterface
 
 
             if ($comments) { // don't forget the last comment if any
-                // adding isBegin=null for all inline comments, as it's only used for multiline comments...
-                foreach ($comments as $k => $comment) {
-                    $comments[$k][] = null;
-                }
                 $this->comments[$this->_previousCurrentPath] = $comments;
 
             }
@@ -81,15 +87,32 @@ class NodeToArrayCommentsConvertor implements NodeToArrayConvertorInterface
         return $this->comments;
     }
 
+    /**
+     * Returns the types of this instance.
+     *
+     * @return array
+     */
+    public function getTypes(): array
+    {
+        return $this->types;
+    }
+
+
+
 
 
     //------------------------------------------------------------------------------/
     // 
     //------------------------------------------------------------------------------/
-    private function resolveChildren(array $children, BabyYamlValueCommentInterpreter $interpreter, array $breadcrumbs = [])
+    private function resolveChildren(array $children, BabyYamlValueNodeInfoInterpreter $interpreter, array $breadcrumbs = [])
     {
         $ret = [];
         foreach ($children as $_k => $node) {
+
+            /**
+             * @var $node NodeInfoNode
+             */
+
             $k = $node->getKey();
             $commentK = $k;
             if (null === $commentK) {
@@ -100,31 +123,57 @@ class NodeToArrayCommentsConvertor implements NodeToArrayConvertorInterface
             $breadcrumbs[] = $commentK;
 
 
+            $valueType = null;
+            $keyType = 'manual';
+            $nodeValue = null;
+
+
+            //--------------------------------------------
+            // ADD COMMENTS
+            //--------------------------------------------
             $comments = $interpreter->getComments();
             $currentPath = implode('.', $breadcrumbs);
             if ($comments) {
-                // adding isBegin=null for all inline comments, as it's only used for multiline comments...
-                foreach ($comments as $k => $comment) {
-                    $comments[$k][] = null;
+                if (false === array_key_exists($this->_previousCurrentPath, $this->comments)) {
+                    $this->comments[$this->_previousCurrentPath] = [];
                 }
-                $this->comments[$this->_previousCurrentPath] = $comments;
+                $this->comments[$this->_previousCurrentPath] = array_merge_recursive($this->comments[$this->_previousCurrentPath], $comments);
                 $interpreter->resetComments();
             }
+            if ($node->hasComments()) {
+                if (false === array_key_exists($currentPath, $this->comments)) {
+                    $this->comments[$currentPath] = [];
+                }
+                $comments = $node->getComments();
+                $this->comments[$currentPath] = array_merge_recursive($this->comments[$currentPath], $comments);
+
+            }
+
+
             $this->_previousCurrentPath = $currentPath;
 
 
+            $nodeValue = $node->getValue();
+
+
             if (false === $node->isMultiline()) {
-                $v = $interpreter->getValue($node->getValue());
+                $v = $interpreter->getValue($nodeValue);
+                if (0 === count($node->getChildren())) {
+                    $valueType = $interpreter->getValueType();
+                }
             } else {
                 /**
                  * We don't want to interpret a multiline.
                  */
-                $v = $node->getValue();
+                $v = $nodeValue;
+                $valueType = "multi";
             }
+
 
             $children2 = $node->getChildren();
             if ($children2) {
                 if (null === $k) {
+                    $keyType = "auto";
                     $ret[] = $this->resolveChildren($children2, $interpreter, $breadcrumbs);
                 } else {
                     $ret[$k] = $this->resolveChildren($children2, $interpreter, $breadcrumbs);
@@ -132,12 +181,23 @@ class NodeToArrayCommentsConvertor implements NodeToArrayConvertorInterface
 
             } else {
                 if (null === $k) {
+                    $keyType = "auto";
                     $ret[] = $v;
                 } else {
                     $ret[$k] = $v;
                 }
             }
 
+
+            if (null !== $valueType) {
+
+                $this->types[$currentPath] = [
+                    $valueType,
+                    $v,
+                    $nodeValue,
+                    $keyType,
+                ];
+            }
 
             array_pop($breadcrumbs);
 

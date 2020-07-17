@@ -3,13 +3,11 @@
 namespace Ling\BabyYaml\Reader\StringParser\ExpressionDiscoverer;
 
 
-use Ling\BabyYaml\Exception\BabyYamlException;
-
 /**
- * HybridCommentsExpressionDiscoverer
+ * HybridNodeInfoExpressionDiscoverer
  *
  */
-class HybridCommentsExpressionDiscoverer extends HybridExpressionDiscoverer implements GreedyExpressionDiscovererInterface
+class HybridNodeInfoExpressionDiscoverer extends HybridExpressionDiscoverer implements GreedyExpressionDiscovererInterface
 {
 
 
@@ -20,12 +18,19 @@ class HybridCommentsExpressionDiscoverer extends HybridExpressionDiscoverer impl
     protected $comments = [];
 
     /**
+     * This property holds the onSuccess for this instance.
+     * @var callable|null
+     */
+    protected $onSuccess = null;
+
+    /**
      * @overrides
      */
     public function __construct()
     {
         parent::__construct();
         $this->comments = [];
+        $this->onSuccess = null;
     }
 
     /**
@@ -45,6 +50,19 @@ class HybridCommentsExpressionDiscoverer extends HybridExpressionDiscoverer impl
     {
         $this->comments = [];
     }
+
+    /**
+     * Sets the onSuccess.
+     *
+     * @param callable $onSuccess
+     */
+    public function setOnSuccess(?callable $onSuccess)
+    {
+        $this->onSuccess = $onSuccess;
+    }
+
+
+
 
 
     //--------------------------------------------
@@ -67,11 +85,20 @@ class HybridCommentsExpressionDiscoverer extends HybridExpressionDiscoverer impl
                 'inline-value',
                 $comment,
             ];
-        } else {
-            throw new BabyYamlException("Why was the comment symbol not detected? That must be weird.");
         }
 
     }
 
+
+    /**
+     * @overrides
+     */
+    protected function resolveValue($v)
+    {
+        if (null !== $this->onSuccess) {
+            call_user_func($this->onSuccess);
+        }
+        return parent::resolveValue($v);
+    }
 
 }

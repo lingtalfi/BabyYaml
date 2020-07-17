@@ -5,9 +5,9 @@ namespace Ling\BabyYaml\Reader\Node;
 
 
 /**
- * The NodeWithComment class.
+ * The NodeInfoNode class.
  */
-class NodeWithComment extends Node
+class NodeInfoNode extends Node
 {
 
 
@@ -18,9 +18,8 @@ class NodeWithComment extends Node
      */
     protected $comments;
 
-
     /**
-     * Builds the NodeWithComment instance.
+     * Builds the NodeInfoNode instance.
      *
      * @param string $value
      * @param null $key
@@ -38,9 +37,9 @@ class NodeWithComment extends Node
      * @param string $comment
      * @param string $type
      */
-    public function addComment(string $comment, string $type, $extra = null)
+    public function addComment(string $comment, string $type)
     {
-        $this->comments[] = [$type, $comment, $extra];
+        $this->comments[] = [$type, $comment];
     }
 
 

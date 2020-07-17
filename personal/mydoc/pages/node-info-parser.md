@@ -1,6 +1,6 @@
-Comments parser
+Node info parser
 ==========
-2020-07-14 -> 2020-07-16
+2020-07-14 -> 2020-07-17
 
 
 Recently I wanted to be able to update a config file programmatically, and preserving its comments.
@@ -26,8 +26,15 @@ However, that was still the simplest (i.e. the lesser evil) solution I came up w
 So bear that in mind if you plan to use this comment parser.  
 
 
+In addition to that, I noticed that the old **BabyYamlUtil::writeFile** function was not agnostic, but interpreted values
+in its own way. So to fix that as well, and kill two birds with one stone, I turned my comment parser into a nodeInfo parser, 
+which now provides not only information about the comments of a file, but also about the key and value types, which is useful info
+when rewriting a babyYaml file from scratch.
 
-Now that the bulk of it is implemented, it looks like this in php code:
+
+
+So now, to update a file, we can do this:
+
 
 ```php
 <?php
@@ -43,19 +50,21 @@ $file2 = "/komin/jin_site_demo/config/services/Light_Train2.byml";
 
 
 $config = BabyYamlUtil::readFile($file);
+list($config, $nodeInfoMap) = BabyYamlUtil::parseNodeInfoByFile($file);
+
+
 $config['train']['methods']['setOptions']['options']["theLastOption"] = "marijuana"; // updating the config...
-$commentsMap = BabyYamlUtil::getCommentsMapByFile($file); // so here we get the comments map
-//az("r", $commentsMap);
 
 BabyYamlUtil::writeFile($config, $file2, [
-    "commentsMap" => $commentsMap, // and here we inject it in the file to write
+    "nodeInfoMap" => $nodeInfoMap,
 ]);
 
 
 
 
-```
 
+
+```
 
 
 
@@ -72,6 +81,43 @@ and re-injecting them later.
 
 
 
+node info map
+-------------
+2020-07-17
+
+
+In order to restore a proper babyYaml file, we need a **node info map**.
+
+This is an array of [bdot paths](https://github.com/karayabin/universe-snapshot/blob/master/universe/Ling/Bat/doc/bdot-notation.md) to **nodeInfo**.
+
+With **node info** contains various information about a specific node:
+
+- keyType: string indicating what type of key was used, it can be one of:
+    - auto
+    - manual
+
+- type: string, the type of value used, can be one of the following:
+    - hybrid
+    - quote
+    - sequence
+    - mapping
+    - multi
+    
+
+- originalValue: string, the original value as written in the babyYaml file (or string)
+- value: string, the interpreted value
+
+- comments: array of [commentItems](#commentitem)
+
+
+All properties are optional.
+
+The **keyType**, **type**, **originalValue** and **value** properties act as an atomic group, so if one of them
+is defined, all the others must be defined. The **comments** property acts as its own group.
+    
+
+
+ 
 
 
 
@@ -79,7 +125,7 @@ and re-injecting them later.
 
 commentItem
 ---------------
-2020-07-14 -> 2020-07-16
+2020-07-14 -> 2020-07-17
 
 
 A comment item is an array representing a comment attached to a specific key.
@@ -90,11 +136,9 @@ Its structure is the following:
     - inline
     - block
     - inline-value
+    - mutli-top
+    - mutli-bottom
 - 1: string, the comment text
-- 2: bool | null, if the comment is attached to a babyYaml multiline text, then indicates 
-    whether the comment is attached to the beginning char of the multiline (true), or
-    the ending char (false).
-    If the comment is not attached on a multiline, the value is null.
     
 
 
@@ -103,3 +147,5 @@ The differences between comment types is:
 - inline: a comment starting just after the key declaration
 - block: a comment standing alone on its line 
 - inline-value: a comment starting after the value  
+- multi-top: a comment starting after the "begin char" of a multiline text  
+- multi-bottom: a comment starting after the "end char" of a multiline text  

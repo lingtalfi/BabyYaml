@@ -7,7 +7,7 @@ namespace Ling\BabyYaml\Reader;
 use Ling\BabyYaml\Exception\BabyYamlException;
 use Ling\BabyYaml\Reader\MultiLineDelimiter\SingleCharCommentsMultiLineDelimiter;
 use Ling\BabyYaml\Reader\Node\NodeInterface;
-use Ling\BabyYaml\Reader\Node\NodeWithComment;
+use Ling\BabyYaml\Reader\Node\NodeInfoNode;
 
 /**
  * The BabyYamlCommentsBuilder class.
@@ -51,10 +51,12 @@ class BabyYamlCommentsBuilder extends BabyYamlBuilder
         if (null === $this->multiLineDelimiter) {
             $this->multiLineDelimiter = new SingleCharCommentsMultiLineDelimiter();
             $this->multiLineDelimiter->setOnCommentFoundCallback(function (string $comment, bool $isBegin) {
+
+                $type = (true === $isBegin) ? 'multi-top' : "multi-bottom";
+
                 $this->comments[] = [
-                    "inline-value",
+                    $type,
                     $comment,
-                    $isBegin,
                 ];
             });
         }
@@ -76,7 +78,7 @@ class BabyYamlCommentsBuilder extends BabyYamlBuilder
      */
     protected function getNodeInstance(string $value = '', $key = null): NodeInterface
     {
-        return new NodeWithComment($value, $key);
+        return new NodeInfoNode($value, $key);
     }
 
 
@@ -90,7 +92,7 @@ class BabyYamlCommentsBuilder extends BabyYamlBuilder
         }
 
         if (0 === strpos($trimmedLine, $this->options['commentSymbol'])) {
-            $this->comments[] = ['block', $line, null];
+            $this->comments[] = ['block', $line];
             return true;
         }
 
@@ -111,7 +113,7 @@ class BabyYamlCommentsBuilder extends BabyYamlBuilder
                 $p = explode(':', $lineContent);
                 $comment = array_pop($p);
             }
-            $this->comments[] = ['inline', $comment, null];
+            $this->comments[] = ['inline', $comment];
             return '';
         }
         return $value;
@@ -144,16 +146,16 @@ class BabyYamlCommentsBuilder extends BabyYamlBuilder
      */
     protected function onNodeProcessed(NodeInterface $node)
     {
-        if ($node instanceof NodeWithComment) {
+        if ($node instanceof NodeInfoNode) {
 
             foreach ($this->comments as $comment) {
-                $node->addComment($comment[1], $comment[0], $comment[2]);
+                $node->addComment($comment[1], $comment[0]);
             }
             $this->comments = []; // don't forget to reset the comments "store" for the next node...
 
         } else {
             $class = get_class($node);
-            throw new BabyYamlException("We only work with NodeWithComment instances, $class passed.");
+            throw new BabyYamlException("We only work with NodeInfoNode instances, $class passed.");
         }
     }
 

@@ -11,7 +11,7 @@ use Ling\BabyYaml\Reader\StringParser\Validator\ContainerValidator;
 /**
  * ValueContainerExpressionDiscoverer
  * @author Lingtalfi
- * 2015-05-14 -> 2020-07-16
+ * 2015-05-14
  *
  *
  * A value container contains value separated by the valueSep symbol.
@@ -71,8 +71,6 @@ class ValueContainerExpressionDiscoverer extends TriContainerExpressionDiscovere
                 }
                 $lastWasSep = true;
             } elseif ($this->isContainerEnd($it)) {
-                $this->onContainerEnd($string);
-
                 if (true === $lastWasSep) {
                     if (true === $this->implicitValues) {
                         $values[] = $this->getDefaultImplicitValue();
@@ -118,19 +116,5 @@ class ValueContainerExpressionDiscoverer extends TriContainerExpressionDiscovere
         return false;
     }
 
-
-    //--------------------------------------------
-    //
-    //--------------------------------------------
-    /**
-     * Hook called when the container end was detected.
-     *
-     * @param string $string
-     * @overrideMe
-     */
-    protected function onContainerEnd(string $string)
-    {
-
-    }
 
 }

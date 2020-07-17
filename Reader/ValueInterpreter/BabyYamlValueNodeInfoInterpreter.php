@@ -3,13 +3,14 @@
 
 namespace Ling\BabyYaml\Reader\ValueInterpreter;
 
-use Ling\BabyYaml\Reader\StringParser\BabyYamlLineCommentExpressionDiscoverer;
+
+use Ling\BabyYaml\Reader\StringParser\BabyYamlLineNodeInfoExpressionDiscoverer;
 
 
 /**
- * BabyYamlValueCommentInterpreter
+ * BabyYamlValueNodeInfoInterpreter
  */
-class BabyYamlValueCommentInterpreter extends BabyYamlValueInterpreter
+class BabyYamlValueNodeInfoInterpreter extends BabyYamlValueInterpreter
 {
 
 
@@ -19,7 +20,7 @@ class BabyYamlValueCommentInterpreter extends BabyYamlValueInterpreter
     public function __construct()
     {
         parent::__construct();
-        $this->discoverer = new BabyYamlLineCommentExpressionDiscoverer();
+        $this->discoverer = new BabyYamlLineNodeInfoExpressionDiscoverer();
     }
 
 
@@ -35,10 +36,21 @@ class BabyYamlValueCommentInterpreter extends BabyYamlValueInterpreter
     /**
      * Resets the @page(commentItems).
      */
-    public function resetComments(){
+    public function resetComments()
+    {
         $this->discoverer->resetComments();
     }
 
+
+    /**
+     * Proxy to the discoverer->getValueType method.
+     *
+     * @return string
+     */
+    public function getValueType(): ?string
+    {
+        return $this->discoverer->peakValueType();
+    }
 
 
 }
