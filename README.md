@@ -688,7 +688,11 @@ The implementation is messy and without too much documentation, but it works.
 History Log
 ===============
    
-    
+
+- 1.7.4 -- 2020-12-04
+
+    - Add lpi-deps.byml file
+
 - 1.7.3 -- 2020-07-17
 
     - add comments option to BabyYamlUtil::writeFile, fix some bugs (test commit)
