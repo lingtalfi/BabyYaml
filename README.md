@@ -1,6 +1,6 @@
 BabyYaml
 ============
-2016-12-28 -> 2020-07-17
+2016-12-28 -> 2021-02-01
 
 
 php implementation of a babyYaml reader.
@@ -689,6 +689,10 @@ History Log
 ===============
    
 
+- 1.7.6 -- 2021-02-01
+  
+    - fix deprecation warning in php8
+  
 - 1.7.5 -- 2020-12-08
 
     - Fix lpi-deps not using natsort.
