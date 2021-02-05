@@ -1,6 +1,6 @@
 BabyYaml
 ============
-2016-12-28 -> 2021-02-01
+2016-12-28 -> 2021-02-05
 
 
 php implementation of a babyYaml reader.
@@ -688,6 +688,10 @@ The implementation is messy and without too much documentation, but it works.
 History Log
 ===============
    
+
+- 1.7.7 -- 2021-02-05
+  
+    - add BabyYamlUtil::updateProperty method
 
 - 1.7.6 -- 2021-02-01
   
