@@ -1,6 +1,6 @@
 BabyYaml
 ============
-2016-12-28 -> 2021-03-05
+2016-12-28 -> 2021-05-18
 
 
 php implementation of a babyYaml reader.
@@ -693,6 +693,10 @@ The implementation is messy and without too much documentation, but it works.
 History Log
 ===============
    
+
+- 1.7.9 -- 2021-05-18
+
+    - update BabyYamlUtil::readFile, now has the numbersAsString option
 
 - 1.7.8 -- 2021-03-05
 
