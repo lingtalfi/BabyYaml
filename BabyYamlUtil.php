@@ -97,12 +97,22 @@ class BabyYamlUtil
     /**
      * Returns the configuration array from the given babyYaml $file.
      *
+     * Available options are:
+     * - numbersAsString: bool=false. If true, all numbers (int, floats) are converted as strings.
+     *
+     *
+     *
      * @param string $string
+     * @param array $options
      * @return array
      * @throws ParseErrorException
      */
-    public static function readBabyYamlString(string $string)
+    public static function readBabyYamlString(string $string, array $options = [])
     {
+        $numbersAsString = $options['numbersAsString'] ?? false;
+        if (true === $numbersAsString) {
+            self::getInst()->setNumbersAsString(true);
+        }
         return self::getInst()->readString($string);
     }
 
