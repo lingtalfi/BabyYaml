@@ -98,3 +98,7 @@
 1.7.10: 
     - Ling:Bat:1.320
     - Ling:CheapLogger:1.0.6
+
+1.7.11: 
+    - Ling:Bat:1.321
+    - Ling:CheapLogger:1.0.6

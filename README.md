@@ -694,6 +694,10 @@ History Log
 ===============
    
 
+- 1.7.11 -- 2021-05-31
+
+    - Removing trailing plus in lpi-deps file (to work with Light_PlanetInstaller:2.0.0 api
+
 - 1.7.10 -- 2021-05-21
 
     - update BabyYamlUtil::readBabyYamlString, now has the numbersAsString option
